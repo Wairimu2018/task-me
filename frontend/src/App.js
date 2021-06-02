@@ -1,25 +1,47 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+
+  state = {
+    foods: []
+  }
+
+  componentDidMount(){
+    fetch("http://localhost:9292/foods")
+    .then(res => res.json())
+    .then(data => this.setState({
+      foods: data.foods
+    }))
+  }
+
+  render() {
+    console.log(this.state.foods)
+
+    return (
+      <div className="">
+        <h2>My Foods</h2>
+        <div className=''>
+          <h5>Meal filters</h5>
+          <button>Button</button>
+        </div>
+        <div className="">
+          <h5>Foods</h5>
+          <form className="">
+            <input onChange={(e) => console.log(e)} placeholder="New food details" type="text" value="Food"></input>
+              <select onChange={(e) => console.log(e)}>
+                <option>Breakfast</option>
+                <option>Lunch</option>
+                <option>Dinner</option>
+                <option>Snack</option>
+                <option>Dessert</option>
+              </select>
+            <input onClick={(e) => console.log(e)} type="submit" value="Add food"></input>
+          </form>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
