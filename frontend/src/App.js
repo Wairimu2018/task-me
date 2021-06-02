@@ -1,4 +1,5 @@
 import React from 'react';
+import { MEALS } from './data'
 import './App.css';
 
 class App extends React.Component {
@@ -15,6 +16,10 @@ class App extends React.Component {
     }))
   }
 
+  handleClick() {
+    console.log("handleClick firing.")
+  }
+
   render() {
     console.log(this.state.foods)
 
@@ -23,7 +28,7 @@ class App extends React.Component {
         <h2>My Foods</h2>
         <div className=''>
           <h5>Meal filters</h5>
-          <button>Button</button>
+          {MEALS.map((meal, i) => <button key={i} onClick={this.handleClick}>{meal}</button>)}
         </div>
         <div className="">
           <h5>Foods</h5>
