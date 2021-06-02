@@ -1,0 +1,11 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "Meal Prep App",
+            "group": "Meal Prep App",
+            "database": "${workspaceFolder:phase-3-ruby-group-project-rack-react}/backend/db/development.sqlite3"
+        }
+    ]
+}
