@@ -1,0 +1,15 @@
+/* .content-section ul li:hover {
+    background-color: rgba(16 18 27 / 40%);
+}
+
+.content-section ul li:hover:first-child {
+    border-radius: 13px 13px 0 0;
+}
+
+.content-section ul li:hover:last-child {
+    border-radius: 0 0 13px 13px;
+}
+
+.content-section ul li + li {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+} */

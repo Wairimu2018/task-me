@@ -1,92 +1,20 @@
 import React from 'react';
-import { MEALS } from './data';
 import './App.css';
-import DisplayFood from './components/DisplayFood';
+import Header from './components/Header';
+import LeftSide from './components/LeftSide';
+import MainContainer from './components/MainContainer';
 
 class App extends React.Component {
 
-  state = {
-    mealDisplay: "",
-    newFood: "",
-    chooseMeal: "Breakfast",
-    foods: []
-  }
-
-  componentDidMount(){
-    fetch('http://localhost:9292/foods')
-    .then(res => res.json())
-    .then(data => this.setState({
-      foods: data.foods
-    }))
-  }
-
-  handleClick =(e) => {
-    e.target.innerText === "All" ? 
-    this.setState({mealDisplay: ""}) :
-    this.setState({mealDisplay: e.target.innerText})
-  }
-
-  handleDelete  = (deleteFood) => {
-
-    fetch('http://localhost:9292/foods/'+deleteFood.id, {
-      method: "DELETE",
-      headers: {
-        'Content-Type': 'application/json',
-      } 
-    })
-
-    this.setState({
-      foods: this.state.foods.filter(food => food !== deleteFood)
-    })
-  }
-
-  handleAddFood = (e) => {
-    e.preventDefault()
-
-    fetch('http://localhost:9292/foods', {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        text: this.state.newFood, 
-        meal: this.state.chooseMeal
-      })
-    })
-    .then(res => res.json())
-    .then(data => {
-      this.setState({
-        foods: [...this.state.foods, data.food], 
-        newFood: ""
-      })
-    })
-  }
-
   render() {
-    console.log(this.state.foods)
-    let filterFoods = this.state.foods.filter(food => food.meal.includes(this.state.mealDisplay))
-
     return (
-      <div className='mw6 center'>
-        <h2>My Foods</h2>
-        <div className=''>
-          <h5>Meal filters</h5>
-          {MEALS.map((meal, i) => <button key={i} onClick={this.handleClick}>{meal}</button>)}
-        </div>
-        <div className=''>
-          <h5>Foods</h5>
-          <form className=''>
-            <input onChange={(e) => this.setState({newFood: e.target.value})} placeholder="New food details" type="text" value={this.state.newFood}></input>
-              <select onChange={(e) => this.setState({chooseMeal: e.target.value})}>
-                <option>Breakfast</option>
-                <option>Lunch</option>
-                <option>Dinner</option>
-                <option>Snack</option>
-                <option>Dessert</option>
-              </select>
-            <input onClick={this.handleAddFood} type="submit" value="Add food"></input>
-          </form>
-          {filterFoods.map((food,i) => <DisplayFood key={i} food={food} handleDelete={this.handleDelete}/> )}
+      <div className='vh-100 w-100 cover bg-center flex items-center justify-center flex-column pa2 pa4-l page-container'>
+        <div className='mw8 br3 pre w-100 h-100 app-container' style={{backgroundColor: "rgba(16 18 27 / 40%)"}}>
+          <Header />
+          <div className="flex flex-grow-1 pre h8 h-100">
+            <LeftSide />
+            <MainContainer />
+          </div>
         </div>
       </div>
     );
