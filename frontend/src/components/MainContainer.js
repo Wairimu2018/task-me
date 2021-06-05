@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { MEALS } from "../data";
+import Hero from "./Hero";
 import DisplayFood from "./DisplayFood";
 import Coupons from "./Coupons";
-import "./MainContainer.css";
 
 class App extends Component {
-
   state = {
     mealDisplay: "",
     newFood: "",
@@ -16,7 +15,7 @@ class App extends Component {
     lunchState: false,
     dinnerState: false,
     snackState: false,
-    dessertState: false
+    dessertState: false,
   };
 
   componentDidMount() {
@@ -31,30 +30,87 @@ class App extends Component {
 
   handleClick = (e) => {
     //   console.log(e.target.innerText)
-    e.target.innerText === "All" ? this.setState({ mealDisplay: "" }) : this.setState({ mealDisplay: e.target.innerText });
+    // e.target.innerText === "All"
+    // ? this.setState({ mealDisplay: "" })
+    // : this.setState({ mealDisplay: e.target.innerText });
 
-    // switch(e) {
-    //     case (e.target.innerText === "All"):
-    //         console.log('All')
-    //         break;
-    //     case (e.target.innerText === "Breakfast"):
-    //         console.log('Breakfast')
-    //         break;
-    //     case (e.target.innerText === "Lunch"):
-    //         console.log('Lunch')
-    //         break;
-    //     case (e.target.innerText === "Dinner"):
-    //         console.log('Dinner')
-    //         break;
-    //     case (e.target.innerText === "Snack"):
-    //         console.log('Snack')
-    //         break;
-    //     case (e.target.innerText === "Dessert"):
-    //         console.log('Dessert')
-    //         break;
-    //     default:
-    //         console.log('This is the default case.')
-    // }
+    if (e.target.innerText === "All") {
+      this.setState({
+        mealDisplay: "",
+        allState: true,
+        breakfastState: false,
+        lunchState: false,
+        dinnerState: false,
+        snackState: false,
+        dessertState: false,
+      });
+      console.log("All");
+    }
+
+    if (e.target.innerText === "Breakfast") {
+      this.setState({
+        mealDisplay: e.target.innerText,
+        allState: false,
+        breakfastState: true,
+        lunchState: false,
+        dinnerState: false,
+        snackState: false,
+        dessertState: false,
+      });
+      console.log("Breakfast");
+    }
+
+    if (e.target.innerText === "Lunch") {
+      this.setState({
+        mealDisplay: e.target.innerText,
+        allState: false,
+        breakfastState: false,
+        lunchState: true,
+        dinnerState: false,
+        snackState: false,
+        dessertState: false,
+      });
+      console.log("Lunch");
+    }
+
+    if (e.target.innerText === "Dinner") {
+      this.setState({
+        mealDisplay: e.target.innerText,
+        allState: false,
+        breakfastState: false,
+        lunchState: false,
+        dinnerState: true,
+        snackState: false,
+        dessertState: false,
+      });
+      console.log("Dinner");
+    }
+
+    if (e.target.innerText === "Snack") {
+      this.setState({
+        mealDisplay: e.target.innerText,
+        allState: false,
+        breakfastState: false,
+        lunchState: false,
+        dinnerState: false,
+        snackState: true,
+        dessertState: false,
+      });
+      console.log("Snack");
+    }
+
+    if (e.target.innerText === "Dessert") {
+      this.setState({
+        mealDisplay: e.target.innerText,
+        allState: false,
+        breakfastState: false,
+        lunchState: false,
+        dinnerState: false,
+        snackState: false,
+        dessertState: true,
+      });
+      console.log("Dessert");
+    }
   };
 
   handleDelete = (deleteFood) => {
@@ -100,11 +156,25 @@ class App extends Component {
 
     return (
       <div className="flex flex-column items-center bb b--white-20 h3 flex-shrink-0 w-75">
-        <div className="flex flex-column-s center container-menu w-100 justify-center ph3 nowrap">
+        <div className="app-menu flex flex-column-s center container-menu w-100 h3 justify-center ph3 nowrap">
           {MEALS.map((meal, i) => (
             <a
+              className={
+                this.state.allState
+                  ? "is-active link white f5 f6-l"
+                  : "link white f5 f6-l" || this.state.breakfastState
+                  ? "is-active link white f5 f6-l"
+                  : "link white f5 f6-l" || this.state.lunchState
+                  ? "is-active link white f5 f6-l"
+                  : "link white f5 f6-l" || this.state.dinnerState
+                  ? "is-active link white f5 f6-l"
+                  : "link white f5 f6-l" || this.state.snackState
+                  ? "is-active link white f5 f6-l"
+                  : "link white f5 f6-l" || this.state.dessertState
+                  ? "is-active link white f5 f6-l"
+                  : "link white f5 f6-l"
+              }
               href="#top"
-              className="link white f5 f6-l"
               key={i}
               onClick={this.handleClick}
             >
@@ -112,29 +182,12 @@ class App extends Component {
             </a>
           ))}
         </div>
+
         <div
           className="content-wrapper white flex flex-column ph4 pt4 w-100"
           style={{ backgroundColor: "rgba(16 18 27 / 40%)" }}
         >
-          <div className="flex items-center w-100 justify-between br3 ph4 pv3 h5 content-wrapper-header">
-            <div className="flex flex-column justify-end w-100 pb2">
-              <h3 className="fw5 f2 flex flex-column ma0">
-                <p className="pa0 ma0">🍔 🍇 🍉 🥦</p>
-                <p className="pa0 ma0">Meal Prepper</p>
-              </h3>
-              <div className="fw4 f4 pv2 mt2 white pre content-text">
-                Build meals with ingredients.
-              </div>
-              <button className="bg-blue bn pv2 white br-pill mt1 pointer nowrap grow w-50">
-                Start free trial
-              </button>
-            </div>
-            <img
-              className="w5 ma2 content-wrapper-img"
-              src="https://b.kisscc0.com/20180813/kjq/kisscc0-drawing-computer-icons-dairy-grocery-store-simple-isometric-store-5b71121ab73605.2018158515341368587504.png"
-              alt=""
-            />
-          </div>
+          <Hero />
 
           <div className="flex flex-column mt4">
             <div className="mb4 f4" style={{ color: "#999ba5" }}>

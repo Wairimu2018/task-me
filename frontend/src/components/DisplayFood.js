@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./DisplayFood.css";
+
 class DisplayFood extends Component {
   render() {
     return (
